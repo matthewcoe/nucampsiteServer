@@ -9,7 +9,8 @@ favoriteRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
 .get(cors.cors, authenticate.verifyUser, (req, res, next) => {
     Favorite.find({user: req.user._id})
-    .populate('user', 'campsites')
+    .populate('user')
+    .populate('campsites')
     .then(favorites => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
